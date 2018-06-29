@@ -1,6 +1,7 @@
 import { options } from './options'
 import * as csv from 'fast-csv'
-import { createReadStream } from 'fs'
+import { createReadStream, createWriteStream } from 'fs'
+import { noIndent } from './no-indent'
 
 export const processCsv = (file: string, uniqueColumns: string[]) => {
   // Hold all column data that needs to be unique. Stores processed data for reference.
@@ -8,7 +9,7 @@ export const processCsv = (file: string, uniqueColumns: string[]) => {
 
   // Adds an empty array for each column to track.
   if (uniqueColumns) {
-    console.log(`Filtering these columns: ${uniqueColumns}`)
+    console.log(`\nFiltering these columns: ${uniqueColumns}\n`)
     uniqueColumns.forEach(columnName => {
       parsedData[columnName] = []
     })
@@ -64,17 +65,35 @@ export const processCsv = (file: string, uniqueColumns: string[]) => {
     }
   })
   .on('end', () => {
-    console.log('Finished processing!')
-    console.log(`Filtered file has ${newCount} rows.`)
-    console.log(`The original file had ${originalCount} rows.`)
-    console.log(`${originalCount - newCount} rows had duplicate or invalid values.`)
-    if (columnsNotExist && columnsNotExist.length > 0) {
-      console.log(`The following columns were not recognized, and were excluded from processing: ${columnsNotExist}`)
-    }
+    console.log('\nBegin write to new file.\n')
+
+    const dateString = new Date().toISOString().removeAll('\.').removeAll('-').removeAll(':')
+    const fileNameNoExtension = file.substring(0, file.lastIndexOf('.csv'))
+
+    const newFileName = `${fileNameNoExtension}-${dateString}.csv`
+    const csvStream = csv.createWriteStream({ headers: true })
+    const writableStream = createWriteStream(newFileName)
+
+    writableStream.on('finish', () => {
+      console.info(noIndent`
+        Done! The filtered data was saved in ${newFileName}.
+
+        Processing Summary:
+
+        Filtered file has ${newCount} rows.
+        The original file had ${originalCount} rows.
+        ${originalCount - newCount} rows had duplicate or invalid values and were excluded.
+        ${columnsNotExist && columnsNotExist.length > 0 ?
+          noIndent`The following columns were not recognized, and were excluded from processing: ${ columnsNotExist }` : ''
+        }
+      `)
+    })
+
+    csvStream.pipe(writableStream)
+    filtered.forEach(item => csvStream.write(item))
+    csvStream.end()
   })
   .on('error', err => {
     throw err
   })
-
-  return filtered
 }

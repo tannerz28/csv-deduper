@@ -3,7 +3,7 @@ import { existsSync } from 'fs'
 import { noIndent } from './no-indent'
 
 export const validateFile = (file: string | undefined) => {
-  if (!file) {
+  if (!file || !file.endsWith('.csv')) {
     throw new Error(noIndent`
       ${chalk.redBright('Invalid CSV argument.')}
       ${chalk.redBright('Received:')} node index.js ${file}

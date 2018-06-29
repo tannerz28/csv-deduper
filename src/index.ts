@@ -22,7 +22,5 @@ validateFile(file)
 // Go through each argument and configure the options.
 const { uniqueColumns } = processArgs(args)
 
-// Process the CSV and return the result.
-const processedData = processCsv(file as string, uniqueColumns)
-
-// TODO: Write new CSV
+// Process the CSV and write to file.
+processCsv(file as string, uniqueColumns)

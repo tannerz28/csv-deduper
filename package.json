@@ -1,6 +1,10 @@
 {
   "name": "csv-deduper",
   "description": "A simple package to remove duplicate rows from a CSV file by matching entire row or specific column(s).",
+  "scripts": {
+    "test": "nyc mocha",
+    "build": "tsc -p ."
+  },
   "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
@@ -9,10 +13,31 @@
     "fast-csv": "^2.4.1"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.4",
+    "@types/mocha": "^5.2.3",
     "@types/node": "^10.5.0",
     "@types/yargs": "^11.0.0",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "mocha-sinon": "^2.1.0",
+    "nyc": "^12.0.2",
+    "sinon": "^6.0.1",
+    "source-map-support": "^0.5.6",
+    "ts-node": "^7.0.0",
     "tslint": "^5.10.0",
     "tslint-config-standard": "^7.1.0",
     "typescript": "^2.9.2"
+  },
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "reporter": [
+      "html"
+    ],
+    "all": true
   }
 }
