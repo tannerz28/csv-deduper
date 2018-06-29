@@ -67,7 +67,7 @@ export const processCsv = (file: string, uniqueColumns: string[]) => {
   .on('end', () => {
     console.log('\nBegin write to new file.\n')
 
-    const dateString = new Date().toISOString().removeAll('\.').removeAll('-').removeAll(':')
+    const dateString = new Date().toISOString().removeAll('.', '-', ':', 'T', 'Z')
     const fileNameNoExtension = file.substring(0, file.lastIndexOf('.csv'))
 
     const newFileName = `${fileNameNoExtension}-${dateString}.csv`

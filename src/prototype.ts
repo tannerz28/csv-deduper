@@ -1,7 +1,15 @@
 interface String {
-  removeAll: (searchValue: string) => string
+  removeAll: (...searchValues: string[]) => string
 }
 
-String.prototype.removeAll = function (this: string, searchValue: string): string {
-  return this.replace(new RegExp(searchValue, 'g'), '')
+const escapeRegex = (val: string) => {
+  return val.startsWith('\\') ? val : `\\${val}`
+}
+
+String.prototype.removeAll = function (this: string, ...searchValues: string[]): string {
+  let result = this
+  searchValues.forEach(val => {
+    result = result.replace(new RegExp(escapeRegex(val), 'g'), '')
+  })
+  return result
 }

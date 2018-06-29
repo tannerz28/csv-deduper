@@ -19,9 +19,11 @@ describe('String.prototype.removeAll', () => {
   it('should remove all spaces from string', () => {
     const original = 'The dog jumped over the cat.'
     const newString = original.removeAll(' ')
+    const newStringRegex = original.removeAll('\s')
 
     assert.notEqual(newString, original)
     assert.equal(newString, 'Thedogjumpedoverthecat.')
+    assert.equal(newStringRegex, 'Thedogjumpedoverthecat.')
   })
   it('should remove all newlines', () => {
     const original = 'The\ndog\njumped\nover\nthe\ncat.'
@@ -29,6 +31,13 @@ describe('String.prototype.removeAll', () => {
 
     assert.notEqual(newString, original)
     assert.equal(newString, 'Thedogjumpedoverthecat.')
+  })
+  it('should remove all .', () => {
+    const original = 'The.dog.jumped.over.the.cat.'
+    const newString = original.removeAll('.')
+
+    assert.notEqual(newString, original)
+    assert.equal(newString, 'Thedogjumpedoverthecat')
   })
 })
 
