@@ -9,7 +9,7 @@ export const processCsv = (file: string, uniqueColumns: string[]) => {
 
   // Adds an empty array for each column to track.
   if (uniqueColumns) {
-    console.log(`\nFiltering these columns: ${uniqueColumns}\n`)
+    console.info(`\nFiltering these columns: ${uniqueColumns}\n`)
     uniqueColumns.forEach(columnName => {
       parsedData[columnName] = []
     })
@@ -65,7 +65,7 @@ export const processCsv = (file: string, uniqueColumns: string[]) => {
     }
   })
   .on('end', () => {
-    console.log('\nBegin write to new file.\n')
+    console.info('\nBegin write to new file.\n')
 
     const dateString = new Date().toISOString().removeAll('.', '-', ':', 'T', 'Z')
     const fileNameNoExtension = file.substring(0, file.lastIndexOf('.csv'))
@@ -84,7 +84,7 @@ export const processCsv = (file: string, uniqueColumns: string[]) => {
         The original file had ${originalCount} rows.
         ${originalCount - newCount} rows had duplicate or invalid values and were excluded.
         ${columnsNotExist && columnsNotExist.length > 0 ?
-          noIndent`The following columns were not recognized, and were excluded from processing: ${ columnsNotExist }` : ''
+          noIndent`The following columns were not recognized and were ignored during processing: ${ columnsNotExist }` : ''
         }
       `)
     })

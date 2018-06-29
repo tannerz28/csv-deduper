@@ -1,7 +1,6 @@
 import { OptionName, options } from './options'
 
 export const processArgs = (args: string[]) => {
-  console.log(args)
   const uniqueColumns: string[] = []
   args.forEach((arg, i) => {
     const argFiltered = arg.removeAll('-')
@@ -23,8 +22,6 @@ export const processArgs = (args: string[]) => {
       uniqueColumns.push(arg)
     }
   })
-
-  console.log(options)
 
   return {
     uniqueColumns
