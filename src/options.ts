@@ -16,7 +16,7 @@ export const options: Record<OptionName, Option> = {
     value: false
   },
   excludeEmpty: {
-    description: 'If columns are passed as arguments, but the row has no value in any of those columns, exclude that row from the filtered results.',
+    description: 'If columns are passed as arguments, but the row has no value in any of those columns, exclude that row from the filtered results. Defaults to false.',
     value: false
   },
   limit: {

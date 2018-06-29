@@ -27,8 +27,7 @@ export const processArgs = (args: string[]) => {
   console.log(options)
 
   return {
-    uniqueColumns,
-    options
+    uniqueColumns
   }
 }
 

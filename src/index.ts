@@ -2,11 +2,16 @@ import './prototype'
 import { validateFile } from './file-validator'
 import { processArgs } from './process-args'
 import { processCsv } from './process-csv'
+import { showHelpMessage } from './help-message'
 
 // Get passed command-line args, ignore first two (node executable and index.js file).
 const [ , , ...args ] = process.argv
 
-// TODO: Create help message. Should use -h and --help
+// Generates a help message from the options in ./options.
+if (['-h', '--help'].some(x => args.includes(x))) {
+  showHelpMessage()
+  process.exit()
+}
 
 // Find given .csv file. It could be any argument, or not exist.
 const file = args.find(x => x.endsWith('.csv'))
