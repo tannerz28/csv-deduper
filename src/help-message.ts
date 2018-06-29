@@ -1,12 +1,13 @@
 import { options, OptionName } from './options'
 import { noIndent } from './no-indent'
-const { name, description } = require('../package.json')
+const { name, description, version, license } = require('../package.json')
 
 export const showHelpMessage = () => {
   let helpMessage = noIndent`
-    ${name} - ${description}
+    ${name} v${version} (${license}) - ${description}
 
-    Usage: node index.js <columns> [options]
+    Usage: node index.js <file.csv> <columns> [options]
+    Example: node index.js ~/users.csv Email Username "Phone Number" --excludeEmpty
 
     Options:
     `

@@ -1,5 +1,6 @@
 {
   "name": "csv-deduper",
+  "description": "A simple package to remove duplicate rows from a CSV file by matching entire row or specific column(s).",
   "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
