@@ -19,7 +19,7 @@ describe('String.prototype.removeAll', () => {
   it('should remove all spaces from string', () => {
     const original = 'The dog jumped over the cat.'
     const newString = original.removeAll(' ')
-    const newStringRegex = original.removeAll('\s')
+    const newStringRegex = original.removeAll('s')
 
     assert.notEqual(newString, original)
     assert.equal(newString, 'Thedogjumpedoverthecat.')
@@ -43,7 +43,7 @@ describe('String.prototype.removeAll', () => {
 
 describe('file validator', () => {
   it('should not error for valid path', () => {
-    assert.doesNotThrow(() => validateFile('./test/files/1.csv'))
+    assert.doesNotThrow(() => validateFile('./test/files/MOCK_DATA.csv'))
   })
   it('should error for non-existant path', () => {
     assert.throws(() => validateFile('./NotReal.csv'))
