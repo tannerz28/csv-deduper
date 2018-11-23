@@ -3,7 +3,8 @@
   "description": "A simple package to remove duplicate rows from a CSV file by matching entire row or specific column(s).",
   "scripts": {
     "test": "nyc mocha",
-    "build": "tsc -p ."
+    "build": "tsc && yarn relink",
+    "relink": "yarn unlink || true && yarn link"
   },
   "version": "0.1.0",
   "main": "index.js",
@@ -44,5 +45,8 @@
   "prettier": {
     "singleQuote": true,
     "semi": false
+  },
+  "bin": {
+    "csv-deduper": "./index.js"
   }
 }
