@@ -15,6 +15,8 @@ export const processCsv = (file: string, uniqueColumns: string[]) => {
     })
   }
 
+  const start = new Date()
+
   const stream = createReadStream(file as string)
 
   if (!stream) {
@@ -106,6 +108,7 @@ export const processCsv = (file: string, uniqueColumns: string[]) => {
             ? noIndent`The following columns were not recognized and were ignored during processing: ${columnsNotExist}`
             : ''
         }
+        Total time: ${new Date().getTime() - start.getTime()} ms.
       `)
       })
 
